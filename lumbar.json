@@ -36,6 +36,9 @@
         "src/common/CoordinateGrid.js",
         "src/common/HoverListener.js",
         "src/common/HorizontalPositionCache.js",
+        "src/resource/ResourceDayView.js",
+        "src/resource/ResourceEventRenderer.js",
+        "src/resource/ResourceView.js",
         "src/outro.js"
       ],
       "styles": [
