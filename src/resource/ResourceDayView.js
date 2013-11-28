@@ -14,9 +14,6 @@ function ResourceDayView(element, calendar) {
   var skipHiddenDays = t.skipHiddenDays;
   var formatDates = calendar.formatDates;
 
-  // internals
-  var cellsPerStaff = window.resourceList.length // Uses a global variable for now
-
   function render(date, delta) {
 
     if (delta) {
@@ -26,7 +23,7 @@ function ResourceDayView(element, calendar) {
     var start = cloneDate(date);
     var end = addDays(cloneDate(start), 1);
 
-    var colCnt = cellsPerStaff;
+    var colCnt = window.resourceList.length;
 
     t.title = formatDate(date, opt('titleFormat'));
 
