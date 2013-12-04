@@ -706,8 +706,11 @@ function ResourceView(element, calendar, viewName) {
   }
 
 
-  function realCellToDate(cell) { // ugh "real" ... but blame it on our abuse of the "cell" system
-    var d = cellToDate(0, cell.col);
+  // PATCHED
+  function realCellToDate(cell, forcedCol) { // ugh "real" ... but blame it on our abuse of the "cell" system
+    // The day is always the first day, no matter the column
+    // var d = cellToDate(0, cell.col);
+    var d = cellToDate(0, forcedCol !== undefined ? forcedCol : cell.col);
     var slotIndex = cell.row;
     if (opt('allDaySlot')) {
       slotIndex--;
@@ -843,13 +846,20 @@ function ResourceView(element, calendar, viewName) {
   }
 
 
+  // PATCHED
   function slotSelectionMousedown(ev) {
     if (ev.which == 1 && opt('selectable')) { // ev.which==1 means left mouse button
       unselect(ev);
       var dates;
+      var actualDates;
+      var resourceIndex;
+
       hoverListener.start(function(cell, origCell) {
         clearSelection();
         if (cell && cell.col == origCell.col && !getIsCellAllDay(cell)) {
+          // Keep the resource index
+          resourceIndex = cell.col;
+
           var d1 = realCellToDate(origCell);
           var d2 = realCellToDate(cell);
           dates = [
@@ -858,6 +868,17 @@ function ResourceView(element, calendar, viewName) {
             d2,
             addMinutes(cloneDate(d2), snapMinutes)
           ].sort(dateCompare);
+
+          // Force the dates to be used as they were from the first day
+          var ad1 = realCellToDate(origCell, 0);
+          var ad2 = realCellToDate(cell, 0);
+          actualDates = [
+            ad1,
+            addMinutes(cloneDate(ad1), snapMinutes),
+            ad2,
+            addMinutes(cloneDate(ad2), snapMinutes)
+          ].sort(dateCompare);
+
           renderSlotSelection(dates[0], dates[3]);
         }else{
           dates = null;
@@ -865,11 +886,14 @@ function ResourceView(element, calendar, viewName) {
       }, ev);
       $(document).one('mouseup', function(ev) {
         hoverListener.stop();
-        if (dates) {
-          if (+dates[0] == +dates[1]) {
-            reportDayClick(dates[0], false, ev);
+        if (actualDates) {
+          // Patch the event to add the resource
+          ev.fcResource = window.resourceList[resourceIndex];
+
+          if (+actualDates[0] == +actualDates[1]) {
+            reportDayClick(actualDates[0], false, ev);
           }
-          reportSelection(dates[0], dates[3], false, ev);
+          reportSelection(actualDates[0], actualDates[3], false, ev);
         }
       });
     }
