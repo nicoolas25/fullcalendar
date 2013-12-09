@@ -141,7 +141,7 @@ function EventManager(options, _sources) {
 				var customData;
 				if ($.isFunction(source.data)) {
 					// supplied as a function that returns a key/value object
-					customData = source.data();
+					customData = source.data(+rangeStart, +rangeEnd);
 				}
 				else {
 					// supplied as a straight key/value object
@@ -154,10 +154,10 @@ function EventManager(options, _sources) {
 
 				var startParam = firstDefined(source.startParam, options.startParam);
 				var endParam = firstDefined(source.endParam, options.endParam);
-				if (startParam) {
+				if (startParam && !data[startParam]) {
 					data[startParam] = Math.round(+rangeStart / 1000);
 				}
-				if (endParam) {
+				if (endParam && !data[endParam]) {
 					data[endParam] = Math.round(+rangeEnd / 1000);
 				}
 

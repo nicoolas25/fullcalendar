@@ -25,7 +25,7 @@ function ResourceDayView(element, calendar) {
 
     var colCnt = window.resourceList.length;
 
-    t.title = formatDate(date, opt('titleFormat'));
+    t.title = formatDate(date, opt('titleFormat'), calendar.options);
 
     t.start = t.visStart = start;
     t.end = t.visEnd = end;
