@@ -1,4 +1,66 @@
 
+v2.0.2 (2014-06-24)
+-------------------
+
+- bug with persisting addEventSource calls ([2191])
+- bug with persisting removeEvents calls with an array source ([2187])
+- bug with removeEvents method when called with 0 removes all events ([2082])
+
+[2191]: https://code.google.com/p/fullcalendar/issues/detail?id=2191
+[2187]: https://code.google.com/p/fullcalendar/issues/detail?id=2187
+[2082]: https://code.google.com/p/fullcalendar/issues/detail?id=2082
+
+
+v2.0.1 (2014-06-15)
+-------------------
+
+- `delta` parameters reintroduced in `eventDrop` and `eventResize` handlers ([2156])
+  - **Note**: this changes the argument order for `revertFunc`
+- wrongfully triggering a windowResize when resizing an agenda view event ([1116])
+- `this` values in event drag-n-drop/resize handlers consistently the DOM node ([1177])
+- `displayEventEnd` - v2 workaround to force display of an end time ([2090])
+- don't modify passed-in eventSource items ([954])
+- destroy method now removes fc-ltr class ([2033])
+- weeks of last/next month still visible when weekends are hidden ([2095])
+- fixed memory leak when destroying calendar with selectable/droppable ([2137])
+- Icelandic language ([2180])
+- Bahasa Indonesia language ([PR 172])
+
+[1116]: https://code.google.com/p/fullcalendar/issues/detail?id=1116
+[1177]: https://code.google.com/p/fullcalendar/issues/detail?id=1177
+[2090]: https://code.google.com/p/fullcalendar/issues/detail?id=2090
+[954]: https://code.google.com/p/fullcalendar/issues/detail?id=954
+[2033]: https://code.google.com/p/fullcalendar/issues/detail?id=2033
+[2095]: https://code.google.com/p/fullcalendar/issues/detail?id=2095
+[2137]: https://code.google.com/p/fullcalendar/issues/detail?id=2137
+[2156]: https://code.google.com/p/fullcalendar/issues/detail?id=2156
+[2180]: https://code.google.com/p/fullcalendar/issues/detail?id=2180
+[PR 172]: https://github.com/arshaw/fullcalendar/pull/172
+
+
+v2.0.0 (2014-06-01)
+-------------------
+
+Internationalization support, timezone support, and [MomentJS] integration. Extensive changes, many
+of which are backwards incompatible.
+
+[Full list of changes][Upgrading-to-v2] | [Affected Issues][Date-Milestone]
+
+An automated testing framework has been set up ([Karma] + [Jasmine]) and tests have been written
+which cover about half of FullCalendar's functionality. Special thanks to @incre-d, @vidbina, and
+@sirrocco for the help.
+
+In addition, the main development repo has been repurposed to also include the built distributable
+JS/CSS for the project and will serve as the new [Bower] endpoint.
+
+[MomentJS]: http://momentjs.com/
+[Upgrading-to-v2]: http://arshaw.com/fullcalendar/wiki/Upgrading-to-v2/
+[Date-Milestone]: https://code.google.com/p/fullcalendar/issues/list?can=1&q=milestone%3Ddate
+[Karma]: http://karma-runner.github.io/
+[Jasmine]: http://jasmine.github.io/
+[Bower]: http://bower.io/
+
+
 v1.6.4 (2013-09-01)
 -------------------
 
@@ -60,7 +122,7 @@ v1.6.2 (2013-07-18)
 
 - `hiddenDays` option ([686])
 - bugfix: when `eventRender` returns `false`, incorrect stacking of events ([762])
-- bugfix: couldn't change `event.backgroundImage` when calling `updateEvent` (thx stephenharris)
+- bugfix: couldn't change `event.backgroundImage` when calling `updateEvent` (thx @stephenharris)
 
 [686]: https://code.google.com/p/fullcalendar/issues/detail?id=686
 [762]: https://code.google.com/p/fullcalendar/issues/detail?id=762
@@ -71,7 +133,7 @@ v1.6.1 (2013-04-14)
 
 - fixed event inner content overflow bug ([1783])
 - fixed table header className bug [1772]
-- removed text-shadow on events (better for general use, thx tkrotoff)
+- removed text-shadow on events (better for general use, thx @tkrotoff)
 
 [1783]: https://code.google.com/p/fullcalendar/issues/detail?id=1783
 [1772]: https://code.google.com/p/fullcalendar/issues/detail?id=1772
@@ -82,16 +144,16 @@ v1.6.0 (2013-03-18)
 
 - visual facelift, with bootstrap-inspired buttons and colors
 - simplified HTML/CSS for events and buttons
-- `dayRender`, for modifying a day cell ([191], thx althaus)
+- `dayRender`, for modifying a day cell ([191], thx @althaus)
 - week numbers on side of calendar ([295])
 	- `weekNumber`
 	- `weekNumberCalculation`
 	- `weekNumberTitle`
 	- `W` formatting variable
-- finer snapping granularity for agenda view events ([495], thx ms-doodle-com)
-- `eventAfterAllRender` ([753], thx pdrakeweb)
-- `eventDataTransform` (thx joeyspo)
-- `data-date` attributes on cells (thx Jae)
+- finer snapping granularity for agenda view events ([495], thx @ms-doodle-com)
+- `eventAfterAllRender` ([753], thx @pdrakeweb)
+- `eventDataTransform` (thx @joeyspo)
+- `data-date` attributes on cells (thx @Jae)
 - expose `$.fullCalendar.dateFormatters`
 - when clicking fast on buttons, prevent text selection
 - bundled with latest jQuery (1.9.1) and jQuery UI (1.10.2)
@@ -108,7 +170,7 @@ v1.6.0 (2013-03-18)
 v1.5.4 (2012-09-05)
 -------------------
 
-- made compatible with jQuery 1.8.* (thx archaeron)
+- made compatible with jQuery 1.8.* (thx @archaeron)
 - bundled with jQuery 1.8.1 and jQuery UI 1.8.23
 
 
