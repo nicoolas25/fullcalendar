@@ -4,33 +4,31 @@ fcViews.resourceDay = ResourceDayView;
 function ResourceDayView(element, calendar) {
   var t = this;
 
+
   // exports
+  t.incrementDate = incrementDate;
   t.render = render;
+
 
   // imports
   ResourceView.call(t, element, calendar, 'resourceDay');
-  var opt = t.opt;
-  var renderAgenda = t.renderAgenda;
-  var skipHiddenDays = t.skipHiddenDays;
-  var formatDates = calendar.formatDates;
 
-  function render(date, delta) {
 
-    if (delta) {
-      addDays(date, delta);
-    }
-
-    var start = cloneDate(date);
-    var end = addDays(cloneDate(start), 1);
-
-    var colCnt = window.resourceList.length;
-
-    t.title = formatDate(date, opt('titleFormat'), calendar.options);
-
-    t.start = t.visStart = start;
-    t.end = t.visEnd = end;
-
-    renderAgenda(colCnt);
+  function incrementDate(date, delta) {
+    var out = date.clone().stripTime().add('days', delta);
+    out = t.skipHiddenDays(out, delta < 0 ? -1 : 1);
+    return out;
   }
 
+
+  function render(date) {
+
+    t.start = t.intervalStart = date.clone().stripTime();
+    t.end = t.intervalEnd = t.start.clone().add('days', 1);
+
+    t.title = calendar.formatDate(t.start, t.opt('titleFormat'));
+
+    var colCnt = window.resourceList.length;
+    t.renderAgenda(colCnt);
+  }
 }
